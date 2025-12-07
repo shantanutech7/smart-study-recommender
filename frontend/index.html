@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Study Recommendation System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 40px;
+    }
+    .container {
+      max-width: 800px;
+      background: white;
+      padding: 25px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    input, button, select {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      font-size: 16px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    .card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Smart Study Recommendation System</h1>
+
+  <h3>Get Recommendations</h3>
+  <input type="text" id="userId" placeholder="Enter user_id (e.g. user_1)">
+  <input type="number" id="topN" placeholder="Enter top N (e.g. 5)">
+  <button onclick="getRecommendations()">Get Recommendations</button>
+
+  <div id="results"></div>
+
+  <hr>
+
+  <h3>Submit Feedback</h3>
+  <input type="text" id="fbUserId" placeholder="User ID">
+  <input type="text" id="fbSubject" placeholder="Subject">
+  <input type="text" id="fbTopic" placeholder="Topic">
+
+   <select id="fbRating">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
+
+<select id="fbUseful">
+  <option value="true">Useful</option>
+  <option value="false">Not Useful</option>
+</select>
+
+
+  <input type="text" id="fbComments" placeholder="Optional comments">
+  <button onclick="sendFeedback()">Submit Feedback</button>
+
+  <p id="feedbackStatus"></p>
+</div>
+<script>
+  async function getRecommendations() {
+    const userInput = document.getElementById("userId");
+    const topNInput = document.getElementById("topN");
+    const resultsDiv = document.getElementById("results");
+
+    if (!userInput || !topNInput || !resultsDiv) return;
+
+    const userId = userInput.value;
+    const topN = Number(topNInput.value || 5);
+
+    resultsDiv.innerHTML = "Loading...";
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/recommendations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          top_n: topN
+        })
+      });
+
+      const data = await response.json();
+      resultsDiv.innerHTML = "";
+
+      if (data.recommendations && Array.isArray(data.recommendations)) {
+        data.recommendations.forEach(rec => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+            <b>Subject:</b> ${rec.subject}<br>
+            <b>Topic:</b> ${rec.topic}<br>
+            <b>Priority:</b> ${rec.priority_score}<br>
+            <b>Reason:</b> ${rec.reason}<br>
+            <b>Model Used:</b> ${rec.model_used}
+          `;
+          resultsDiv.appendChild(div);
+        });
+      } else {
+        resultsDiv.innerHTML = "No recommendations found.";
+      }
+
+    } catch (err) {
+      resultsDiv.innerHTML = "Error fetching recommendations";
+      console.error(err);
+    }
+  }
+
+  async function sendFeedback() {
+    const status = document.getElementById("feedbackStatus");
+
+    const userEl = document.getElementById("fbUserId");
+    const subjectEl = document.getElementById("fbSubject");
+    const topicEl = document.getElementById("fbTopic");
+    const ratingEl = document.getElementById("fbRating");
+    const usefulEl = document.getElementById("fbUseful");
+    const commentEl = document.getElementById("fbComments");
+
+    if (!userEl || !subjectEl || !topicEl || !ratingEl || !usefulEl || !commentEl) return;
+
+    const payload = {
+      user_id: userEl.value,
+      subject: subjectEl.value,
+      topic: topicEl.value,
+      feedback_rating: Number(ratingEl.value || 0),
+      useful: usefulEl.value === "true",
+      comments: commentEl.value
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      await response.json();
+      status.innerHTML = "✅ Feedback submitted successfully!";
+      status.className = "success";
+
+    } catch (err) {
+      status.innerHTML = "❌ Failed to submit feedback";
+      console.error(err);
+    }
+  }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
