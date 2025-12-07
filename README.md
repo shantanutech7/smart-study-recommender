@@ -145,89 +145,6 @@ Evaluation metrics:
 ---
 
 ## 🌐 API Endpoints (FastAPI)
-
-### ✅ Health Check
-`GET /health`
-
-Response:
-```json
-{ "status": "ok" }
-
-POST /recommendations
-
-Request:
-
-{
-  "user_id": "user_1",
-  "top_n": 5
-}
-
-Response:
-
-{
-  "user_id": "user_1",
-  "recommendations": [
-    {
-      "subject": "Math",
-      "topic": "Derivatives",
-      "priority_score": 0.92,
-      "reason": "Low recent score, high difficulty, not studied for 12 days"
-    }
-  ]
-}
-
-POST /feedback
-
-{
-  "user_id": "user_1",
-  "subject": "Math",
-  "topic": "Derivatives",
-  "feedback_rating": 4,
-  "useful": true
-}
-
-stored in:
-
-
-git clone <repo_url>
-cd smart-study-recommender
-python -m venv .venv
-source .venv/bin/activate   # or .venv\Scripts\Activate.ps1 (Windows)
-pip install -r requirements.txt
-uvicorn src.api.main:app --reload
-
-
-📌 Project Roadmap
-
-✅ Project initialization
-
-✅ Architecture & documentation
-
-⏳ Synthetic data generation
-
-⏳ EDA & feature engineering
-
-⏳ Rule-based recommender
-
-⏳ ML recommender
-
-⏳ API integration
-
-⏳ Testing & deployment
-
-👨‍💻 Author
-
-Shantanu Bawane
-Data Science | Machine Learning | AI Engineering
-
-## 🔌 API Usage Examples
-
-### 1️⃣ JavaScript (Browser / Frontend)
-
-## 🔌 API Usage Examples
-
-### 1️⃣ JavaScript (Browser / Frontend)
-
 ```javascript
 async function getRecommendations() {
   const response = await fetch("http://127.0.0.1:8000/recommendations", {
@@ -248,50 +165,34 @@ async function getRecommendations() {
 getRecommendations();
 
 
-✅ This shows how a **real frontend** would call your AI API.
-
----
-
-## ✅ 2. cURL Example (Terminal Testing)
-
-```markdown
-### 2️⃣ cURL (Terminal)
-
+### ✅ cURL example
+```md
 ```bash
 curl -X POST "http://127.0.0.1:8000/recommendations" \
   -H "Content-Type: application/json" \
-  -d '{ 
-    "user_id": "user_1", 
-    "top_n": 5 
-  }'
+  -d '{"user_id":"user_1","top_n":5}'
 
 
+⚠️ You must have:
+- **Three backticks before**
+- **Three backticks after**
+- Language name immediately after the first three backticks
 
-  
- 
- 
-  
-  
-  
-  
-  
-  
+---
 
- 
-  
+## ✅ ✅ 2. Also check for these mistakes and fix them:
+- ❌ Using only **one or two backticks**
+- ❌ Forgetting to **close** a code block
+- ❌ Writing `javascript` or `bash` without ``` before it
 
+---
 
+## ✅ ✅ 3. After fixing in VS Code:
+1. Save `README.md`
+2. Commit & push again:
 
-
-
-
-
-
-
-
-
-
-
-
-
+```powershell
+git add README.md
+git commit -m "Fix README markdown formatting"
+git push
 
